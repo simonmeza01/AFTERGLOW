@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 import {
   registerWithEmailAndPassword,
+  signInWithFacebook,
   signInWithGoogle,
 } from "../../firebase/auth-service";
-import { LOGIN_URL } from "../../constants/urls";
+import { LOGIN_URL, USER_PAGE } from "../../constants/urls";
 function RegisterPage() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -19,6 +20,11 @@ function RegisterPage() {
   
     const handleSignWithGoogle = async () => {
       await signInWithGoogle();
+      navigate(USER_PAGE);
+    };
+    const handleSignWithFacebook = async () => {
+      await signInWithFacebook();
+      navigate(USER_PAGE);
     };
   
     const handleOnChange = (event) => {
@@ -36,7 +42,7 @@ function RegisterPage() {
         await registerWithEmailAndPassword(email, password, extraData);
         console.log("Todo salio bien")
         alert("Register complete...Enjoy!")
-        navigate("/profile");
+        navigate(USER_PAGE);
     }catch(error){
         console.log(error);
         console.log("This email is already in our DataBase")
@@ -116,13 +122,13 @@ function RegisterPage() {
             {/* Profesion field */}
             <div className={styles.inputContainer}>
               <h3 htmlFor="job">
-                  Profession
+                  Roll 
               </h3>
               <input
                 type="text"
                 name="job"
                 id="job"
-                placeholder="If you are a doctor type (d) else type (c)"
+                placeholder="If you are a doctor type (D) for pacient type (P)"
                 onChange={handleOnChange}
                 required
               />
@@ -143,7 +149,7 @@ function RegisterPage() {
             <button
               type="button"
               className={styles.facebookBtn}
-              onClick={handleSignWithGoogle}
+              onClick={handleSignWithFacebook}
             >
               Register with Facebook
             </button>          

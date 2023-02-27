@@ -3,6 +3,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { FacebookAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD6t7JttdOiBRvlHeaYUt60pWikTU9yBs4",
@@ -14,12 +15,13 @@ const firebaseConfig = {
   measurementId: "G-NP00W37P9W"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-export const auth = getAuth(app); // Conexion con el modulo de Autenticacion de Firebase
-export const db = getFirestore(app); // Conexion con el modulo de Base de datos de Firebase
-export const store = getStorage(app); // Conexion con el modulo de Storage de Firebase
+export const auth = getAuth(app); 
+export const db = getFirestore(app); 
+export const store = getStorage(app); 
 
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
+
+export const facebookProvider = new FacebookAuthProvider();
+facebookProvider.setCustomParameters({ prompt: "select_account" });

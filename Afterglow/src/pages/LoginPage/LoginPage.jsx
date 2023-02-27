@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
-import { REGISTER_URL } from "../../constants/urls";
+import { REGISTER_URL, USER_PAGE } from "../../constants/urls";
 import { useState } from "react";
-import {loginWithEmailAndPassword, signInWithGoogle,} from "../../firebase/auth-service";
+import {loginWithEmailAndPassword, signInWithFacebook, signInWithGoogle,} from "../../firebase/auth-service";
 import Logo from '../../assets/Logo.png'
 function LoginPage() {
     const navigate = useNavigate();
@@ -14,6 +14,12 @@ function LoginPage() {
   
     const handleSignWithGoogle = async () => {
       await signInWithGoogle();
+      navigate(USER_PAGE)
+    };
+
+    const handleSignWithFacebook = async () => {
+      await signInWithFacebook();
+      navigate(USER_PAGE);
     };
   
     const handleOnChange = (event) => {
@@ -31,7 +37,7 @@ function LoginPage() {
         await loginWithEmailAndPassword(email, password);
         console.log("Succesfull!");
         alert("Successfull Login!!");
-        navigate("/profile");
+        navigate(USER_PAGE)
       }catch(error){
         console.log(error);
         console.log("Credentials not found!");
@@ -97,7 +103,7 @@ function LoginPage() {
           <button
             type="button"
             className={styles.facebookButton}
-            onClick={handleSignWithGoogle}
+            onClick={handleSignWithFacebook}
           >
             Continue with Facebook
           </button>
